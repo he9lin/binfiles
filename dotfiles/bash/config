@@ -38,8 +38,12 @@ BMAGENTA='\e[45m'
 BCYAN='\e[46m'
 BWHITE='\e[47m'
 
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
 # Update the command prompt to be <user>:<current_directory>(git_branch) >
 # Note that the git branch is given a special color
-PS1="\n\[$EMAGENTA\]\u\[$YELLOW\][\t]\[$GREEN\]:\w \[$NO_COLOR\] \n→ "
+PS1="\n\[$EMAGENTA\]\u\[$YELLOW\][\t]\[$GREEN\]:\w \[$NO_COLOR\] \$(parse_git_branch)\n→ "
 
 
